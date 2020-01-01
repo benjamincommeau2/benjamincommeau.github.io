@@ -1,7 +1,9 @@
 import sys
 import string
 import numpy as np
-#filename=sys.argv[1]
+if(len(sys.argv)<3):
+  print('Error: Need 2 file names')
+  sys.exit()
 mycharacters=[l for l in string.printable]
 xbad=mycharacters[99]
 del mycharacters[99]
@@ -18,9 +20,12 @@ print(diff)
 for i in range(len(filecharacters)):
   if(filecharacters[i]=='\t'):
     filecharacters[i]=' ';
+for i in range(len(filecharacters)):
+  if(filecharacters[i]==' '):
+    filecharacters[i]='  ';
 diff=np.setdiff1d(np.array(filecharacters),np.array(mycharacters),assume_unique=True).tolist()
 print(diff)
 filestring=''.join(filecharacters)
-filewrite=open('new_'+sys.argv[1],'w')
+filewrite=open(sys.argv[2],'w')
 filewrite.write(filestring)
 filewrite.close()
